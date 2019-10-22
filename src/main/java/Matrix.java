@@ -1,3 +1,7 @@
+import jdk.internal.net.http.common.Pair;
+
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class Matrix {
@@ -28,9 +32,9 @@ public class Matrix {
         }
     }
 
-    public int findBiggestIsland() {
+    public int findBiggestIslandDFS() {
         int max = 0;
-        int islandSize = 0;
+        int islandSize;
         for(int i = 0; i< n; i++) {
             for(int j = 0; j < m; j++) {
                 if(map[i][j] == 1 && visited[i][j] == false) {
@@ -59,5 +63,26 @@ public class Matrix {
             }
         }
         return islandSize;
+    }
+
+    /*public int findBiggestIslandBFS() {
+
+        Queue<Pair<Integer, Integer>> queue = new LinkedList<Pair<Integer, Integer>>();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (map[i][j] == 1 && visited[i][j] == false) {
+                    queue.add(new Pair(i, j));
+                    visited[i][j] = true;
+                    while (!queue.isEmpty()) {
+
+                    }
+                }
+            }
+        }
+    }
+*/
+    public void rekurencja(int i) {
+        if(i == 0) return;
+        rekurencja(i-1);
     }
 }
