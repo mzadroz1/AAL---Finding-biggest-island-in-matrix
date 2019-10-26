@@ -1,4 +1,3 @@
-import jdk.internal.net.http.common.Pair;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,7 +18,11 @@ public class Matrix {
             {
                 visited[i][j] = false;
                 Random rand = new Random();
-                map[i][j] = rand.nextInt(2);;
+                int k = rand.nextInt(3);
+                if(k == 1)
+                    map[i][j] = 1;
+                else
+                    map[i][j] = 0;
             }
     }
 
@@ -65,24 +68,43 @@ public class Matrix {
         return islandSize;
     }
 
-    /*public int findBiggestIslandBFS() {
+    public int findBiggestIslandBFS() {
 
-        Queue<Pair<Integer, Integer>> queue = new LinkedList<Pair<Integer, Integer>>();
+        //Queue<Pair<Integer, Integer>> queue = new LinkedList<Pair<Integer, Integer>>();
+        int max = 0;
+        int islandSize;
+        Queue<Integer> queuei = new LinkedList<Integer>();
+        Queue<Integer> queuej = new LinkedList<Integer>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
+                islandSize = 0;
                 if (map[i][j] == 1 && visited[i][j] == false) {
-                    queue.add(new Pair(i, j));
+                    islandSize++;
+                    queuei.add(i);
+                    queuej.add(j);
                     visited[i][j] = true;
-                    while (!queue.isEmpty()) {
-
+                    while (!queuei.isEmpty() && !queuej.isEmpty()) {
+                        int curI = queuei.remove();
+                        int curJ = queuej.remove();
+                        for (int k = curI - 1; k <= curI + 1; k++) {
+                            for (int l = curJ - 1; l <= curJ + 1; l++) {
+                                if (k >= 0 && k < n && l >= 0 && l < m) {
+                                    if (map[k][l] == 1 && visited[k][l] == false) {
+                                        islandSize++;
+                                        queuei.add(k);
+                                        queuej.add(l);
+                                        visited[k][l] = true;
+                                    }
+                                }
+                            }
+                        }
                     }
+                    if(islandSize > max)
+                        max = islandSize;
                 }
             }
         }
+        return max;
     }
-*/
-    public void rekurencja(int i) {
-        if(i == 0) return;
-        rekurencja(i-1);
-    }
+
 }
