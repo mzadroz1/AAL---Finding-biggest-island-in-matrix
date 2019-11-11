@@ -70,29 +70,27 @@ public class Matrix {
 
     public int findBiggestIslandBFS() {
 
-        //Queue<Pair<Integer, Integer>> queue = new LinkedList<Pair<Integer, Integer>>();
         int max = 0;
         int islandSize;
-        Queue<Integer> queuei = new LinkedList<Integer>();
-        Queue<Integer> queuej = new LinkedList<Integer>();
+        Queue<Integer> queue = new LinkedList<Integer>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 islandSize = 0;
                 if (map[i][j] == 1 && visited[i][j] == false) {
                     islandSize++;
-                    queuei.add(i);
-                    queuej.add(j);
+                    queue.add(i);
+                    queue.add(j);
                     visited[i][j] = true;
-                    while (!queuei.isEmpty() && !queuej.isEmpty()) {
-                        int curI = queuei.remove();
-                        int curJ = queuej.remove();
+                    while (!queue.isEmpty()) {
+                        int curI = queue.remove();
+                        int curJ = queue.remove();
                         for (int k = curI - 1; k <= curI + 1; k++) {
                             for (int l = curJ - 1; l <= curJ + 1; l++) {
                                 if (k >= 0 && k < n && l >= 0 && l < m) {
                                     if (map[k][l] == 1 && visited[k][l] == false) {
                                         islandSize++;
-                                        queuei.add(k);
-                                        queuej.add(l);
+                                        queue.add(k);
+                                        queue.add(l);
                                         visited[k][l] = true;
                                     }
                                 }
