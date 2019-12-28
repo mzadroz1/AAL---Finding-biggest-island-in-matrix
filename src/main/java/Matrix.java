@@ -1,30 +1,54 @@
+//Michał Zadrożny AAL Projekt 14 Archipelag
+
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Matrix {
-    private int n,m;
+    private int n, m;
     private int[][] map;
     private boolean[][] visited;
+    private int maxIsland;
 
-    public Matrix(int n, int m) {
+    public Matrix(int n, int m, double p) {
         this.n = n;
         this.m = m;
+        maxIsland = 0;
         map = new int[n][m];
         visited = new boolean[n][m];
-        for(int i=0;i<n;i++)
-            for(int j = 0; j<m; j++)
-            {
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++) {
                 visited[i][j] = false;
                 Random rand = new Random();
-                int k = rand.nextInt(3);
-                if(k == 1)
+                int bound = (int) (p * 100);
+                int k = rand.nextInt(100);
+                if (k < bound)
                     map[i][j] = 1;
                 else
                     map[i][j] = 0;
             }
     }
+
+    public Matrix() {
+        Scanner scan = new Scanner(System.in);
+        n = scan.nextInt();
+        m = scan.nextInt();
+        scan.nextLine();
+        maxIsland = 0;
+        map = new int[n][m];
+        visited = new boolean[n][m];
+
+        for (int i = 0; i < n; i++) {
+            String row = scan.nextLine();
+            for (int j = 0; j < m; j++) {
+                visited[i][j] = false;
+                map[i][j] = Character.getNumericValue(row.charAt(j));
+            }
+        }
+    }
+
 
     public void printMatrix() {
         for(int i=0;i<n;i++) {
@@ -33,6 +57,10 @@ public class Matrix {
             }
             System.out.println();
         }
+    }
+
+    public int getMaxIslandSize() {
+        return maxIsland;
     }
 
     public int findBiggestIslandDFS() {
@@ -49,6 +77,7 @@ public class Matrix {
 
             }
         }
+        maxIsland = max;
         return max;
     }
 
@@ -102,6 +131,7 @@ public class Matrix {
                 }
             }
         }
+        maxIsland = max;
         return max;
     }
 
